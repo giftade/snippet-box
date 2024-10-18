@@ -1,0 +1,30 @@
+{{template "base" .}}
+{{define "title"}}Reset Password{{end}}
+{{define "body"}}
+<form action='/user/passwordReset' method='POST' novalidate>
+<input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+{{with .Form}}
+{{with .Errors.Get "generic"}}
+<div class='error'>{{.}}</div>
+{{end}}
+<div>
+<label>Email:</label>
+<input type='email' name='email' value='{{.Get "email"}}'>
+</div>
+<div>
+<label>Current Password:</label>
+<input type='password' name='currentPassword'>
+</div>
+<div>
+<label>New Password:</label>
+{{with .Errors.Get "newPassword"}}
+<label class='error'>{{.}}</label>
+{{end}}
+<input type='password' name='newPassword'>
+</div>
+<div>
+<input type='submit' value='Reset Password'>
+</div>
+{{end}}
+</form>
+{{end}}
